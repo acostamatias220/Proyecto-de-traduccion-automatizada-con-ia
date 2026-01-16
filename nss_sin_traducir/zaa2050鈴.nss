@@ -1,0 +1,143 @@
+
+chapter main
+{
+
+	if($GameStart != 1)
+	{
+		$GameName = ModuleFileName();
+		$GameContiune = 1;
+		Reset();
+	}
+
+}
+
+scene zaa2050鈴.nss_MAIN
+{
+//■超速設定
+	if(($SYSTEM_skip && #SYSTEM_skip_express && $AllRead) || ($SYSTEM_skip && #SYSTEM_skip_express && #SYSTEM_skip_absolute)){
+		SkipOut();
+	}else{
+		$MainGameName="@->"+$GameName;
+		GameMainSet();
+		call_scene $MainGameName;
+		GameMainSet2();
+	}
+
+//■選択肢スクリプト及びフラグ設定
+	//▼イベントＣＧ
+	#イベントファイル名=true;
+
+	//▼ルートフラグ、選択肢、次のGameName
+	$PreGameName = $GameName;
+	EndScript();
+
+}
+
+scene zaa2050鈴.nss
+{
+	$スクリプトバージョン = "  Version $Revision:  $";
+	$構成名 = ModuleFileName();
+	$構文名 = $SYSTEM_present_process;
+	SystemInit();
+
+//<continuation number="80">
+////////////header////////////
+//file name "zaa2050鈴.nss"
+//title "星の脱走"
+
+////////////body////////////
+
+//■再定義定型文
+	PrintBG("上背景", 30000);
+
+{	ClockPass(2051);}
+
+//◆場所：スーパーノヴァ_ライブ会場_ガラス補修
+	OnBG(10,"bg0502211スーパーノヴァ_ライブ会場_ガラス補修");
+	FadeBG(0,true);
+
+{	St("MR",700, @0,@0,"bu歌門_通常_hard");
+	FadeSt("MR",0,true);}
+
+	MusicStart("@xbgm20",1000,450,0,1000,null,true);
+
+	FadeDelete("上背景", 500, null, true);
+
+//――――――――――――――――――――――――――――――――――――――
+<PRE @box0>
+[text0010]
+//【歌門星】
+<voice name="歌門星" class="歌門星" src="voice/zaa20/500600010kms">
+「あ――あの男は！」
+
+{	DeleteSt("MR",200,false);
+	St("ML",700, @-30,@0,"bu鈴_シリアス_angry");
+	Move("@StNameML/ML*", 200, @30, @0, Dxl3, false);
+	FadeSt("ML",200,true);}
+//【富士見鈴】
+<voice name="富士見鈴" class="富士見鈴" src="voice/zaa20/500600020fjr">
+「ちょっと星ちゃん！　逃げ出すなんて――」
+
+{	DeleteSt("ML",200,false);
+	St("MR",700, @0,@0,"bu歌門_威圧_shout");
+	FadeSt("MR",200,true);}
+//【歌門星】
+<voice name="歌門星" class="歌門星" src="voice/zaa20/500600030kms">
+「黙りなさいッ！！」
+
+{	DeleteSt("MR",200,false);
+	St("ML",700, @0,@0,"bu鈴_シリアス_fear");
+	Shake("@StNameML/ML*", 200, 0, 15, 0, 0, 500, Dxl3, false);
+	FadeSt("ML",200,true);}
+//【富士見鈴】
+<voice name="富士見鈴" class="富士見鈴" src="voice/zaa20/500600040fjr">
+「ひっ！」
+
+{	DeleteSt("ML",200,false);
+	St("MR",700, @0,@0,"bu歌門_通常_shout");
+	FadeSt("MR",200,true);}
+//【歌門星】
+<voice name="歌門星" class="歌門星" src="voice/zaa20/500600050kms">
+「ミヅハ様と私の仲を邪魔する者は――
+　例え鈴様でも、許しませんッ！！」
+
+</PRE>
+	SetText();
+	TypeBegin(0);//―――――――――――――――――――――――――――
+
+//	TextBoxDelete(150);
+
+//――――――――――――――――――――――――――――――――――――――
+<PRE @box0>
+[text0020]
+{	DeleteSt("MR",200,false);
+	St("ML",700, @0,@0,"bu鈴_通常_sad");
+	FadeSt("ML",200,true);}
+//【富士見鈴】
+<voice name="富士見鈴" class="富士見鈴" src="voice/zaa20/500600060fjr">
+「あ……はい、ごめんなさい」
+
+{	DeleteSt("ML",200,false);
+	St("MR",700, @0,@0,"bu歌門_通常_shout");
+	FadeSt("MR",200,true);}
+//【歌門星】
+<voice name="歌門星" class="歌門星" src="voice/zaa20/500600070kms">
+「失礼ッ！！」
+
+{	Move("@StNameMR/MR*", 200, @150, @0, Dxl3, false);
+	DeleteSt("MR",200,false);
+	Wait(800);
+	St("ML",700, @0,@0,"bu鈴_通常_shock");
+	FadeSt("ML",200,true);}
+//【富士見鈴】
+<voice name="富士見鈴" class="富士見鈴" src="voice/zaa20/500600080fjr">
+「…………怖っ」
+
+</PRE>
+	SetText();
+	TypeBegin(0);//―――――――――――――――――――――――――――
+
+	TextBoxDelete(150);
+
+	EndScene();
+}
